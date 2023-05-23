@@ -35,14 +35,14 @@ return (
       <div>
         <div className='flex'>
       <div className={`overflow-hidden flex transition-all duration-500 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-gray-100 to-gray-100/50 p-4 shadow-black shadow-xl`}>
-      <h1 style={{ fontFamily: data.font, fontSize: data.titleSize + "px", color: data.titleColor }} className={`${data.titleFontStyle} ${data.titleCase}`}>
+      <h1 style={{ fontFamily: data.font, fontSize: data.titleSize + "px", color: data.titleColor }} className={`${data.titleFontStyle} ${data.titleCase === "uppercase" ? "uppercase" : ""}`}>
           {data.title}
       </h1>
       </div>
       <div className={`flextransition-all duration-700 delay-500 ease-in-out transform ${data.show ? 'h-20' : 'h-0'} flex items-center bg-blue-950 w-3`}></div>
       </div>
       <div className={`h-5 w-max transition-all duration-1000 delay-700 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-cyan-500/90 to-blue-500/90 p-4`}>
-      <h2 style={{ fontFamily: data.font, fontSize: data.subtitleSize + "px", color: data.subtitleColor }} className={`${data.subtitleFontStyle} ${data.subtitleCase}`}>
+      <h2 style={{ fontFamily: data.font, fontSize: data.subtitleSize + "px", color: data.subtitleColor }} className={`${data.subtitleFontStyle} ${data.subtitleCase === "uppercase" ? "uppercase" : ""}`}>
           {data.subtitle}
       </h2>
   </div>
