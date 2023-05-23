@@ -168,19 +168,20 @@ useEffect(() => {
                      <button className='bg-white p-3 rounded-md hover:bg-slate-300' type="button" onClick={() => fileInput.current && fileInput.current.click()}>Cambiar logo</button>
                     </div>
                 <button className='bg-white rounded-md p-3 mb-2 hover:bg-slate-400 w-full' onClick={handleShow}>{show ? 'Mostrar' : 'Ocultar'}</button>
-                <button className='bg-white rounded-md p-3 hover:bg-slate-400 w-full' onClick={handleAdd}>Agregar</button>
-<button className='bg-white rounded-md p-3 hover:bg-slate-400 w-full' onClick={handleSave}>Guardar</button>
+                <div className='flex gap-2'>
+                <button className='bg-white rounded-md p-3 hover:bg-slate-400 flex font-black' onClick={handleAdd}>+</button>
+                <button className='bg-white rounded-md p-3 hover:bg-slate-400 flex' onClick={handleSave}>Guardar</button>
+                <input type='file' ref={fileInputtxt} onChange={handleFileUpload} style={{display: 'none'}} />
+            <button className='bg-indigo-500 p-3 rounded-lg hover:bg-indigo-700' onClick={() => fileInputtxt.current.click()}>Cargar tercios txt</button>
 
-                <div>
-            <input type='file' ref={fileInputtxt} onChange={handleFileUpload} style={{display: 'none'}} />
-            <button onClick={() => fileInputtxt.current.click()}>Cargar archivo</button>
-        </div>
+                </div>
+
                 <div className='mt-4'>
             <h2 className="mb-4 font-black text-slate-200 bg-slate-600 rounded-md px-4 py-2 w-max">Elementos Guardados</h2>
-            <ul>
+            <ul className='text-white'>
                 {savedItems.map((item, index) => (
-                    <li key={index} onClick={() => handleSelect(item)}>
-                        Título: {item.title}, Subtítulo: {item.subtitle}
+                    <li className='bg-gray-600 m-2 rounded-md px-3 cursor-pointer hover:bg-gray-200 hover:text-indigo-900' key={index} onClick={() => handleSelect(item)}>
+                       <span className='font-black text-indigo-400'>Título:</span>  {item.title}, <span className='font-black text-indigo-400'>Subtítulo:</span> {item.subtitle}
                     </li>
                 ))}
             </ul>
