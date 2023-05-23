@@ -8,7 +8,7 @@ export function Control() {
   const fileInputtxt = useRef();
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [font, setFont] = useState("Josefin Sans");
   const [titleSize, setTitleSize] = useState(30);
   const [subtitleSize, setSubtitleSize] = useState(20);
