@@ -1,22 +1,74 @@
 // Control.js
 'use client'
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { saveAs } from 'file-saver';
 
 export function Control() {
-    const [title, setTitle] = useState("");
-    const [subtitle, setSubtitle] = useState("");
-    const [show, setShow] = useState(false);
-    const [font, setFont] = useState("Josefin Sans");
-    const [titleSize, setTitleSize] = useState(30);
-    const [subtitleSize, setSubtitleSize] = useState(20);
-    const [titleColor, setTitleColor] = useState("#000080");
-    const [subtitleColor, setSubtitleColor] = useState("#ffffff");
-    const [logo, setLogo] = useState("");
-    const fileInput = React.createRef();
-    const [titleFontStyle, setTitleFontStyle] = useState("font-normal");
-    const [subtitleFontStyle, setSubtitleFontStyle] = useState("font-normal");
-    const [titleCase, setTitleCase] = useState("lowercase");
-    const [subtitleCase, setSubtitleCase] = useState("lowercase");
+  const [savedItems, setSavedItems] = useState([]);
+  const fileInputtxt = useRef();
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [show, setShow] = useState(false);
+  const [font, setFont] = useState("Josefin Sans");
+  const [titleSize, setTitleSize] = useState(30);
+  const [subtitleSize, setSubtitleSize] = useState(20);
+  const [titleColor, setTitleColor] = useState("#000080");
+  const [subtitleColor, setSubtitleColor] = useState("#ffffff");
+  const [logo, setLogo] = useState("");
+  const fileInput = React.createRef();
+  const [titleFontStyle, setTitleFontStyle] = useState("font-normal");
+  const [subtitleFontStyle, setSubtitleFontStyle] = useState("font-normal");
+  const [titleCase, setTitleCase] = useState("lowercase");
+  const [subtitleCase, setSubtitleCase] = useState("lowercase");
+  const updateDisplayData = useCallback(() => {
+    const data = {
+        title,
+        subtitle,
+        show: !show,
+        font,
+        titleSize,
+        subtitleSize,
+        titleColor,
+        subtitleColor,
+        logo,
+        titleFontStyle,
+        subtitleFontStyle,
+        titleCase,
+        subtitleCase
+    };
+
+    localStorage.setItem("lowerThirdsData", JSON.stringify(data));
+}, [title, subtitle, show, font, titleSize, subtitleSize, titleColor, subtitleColor, logo, titleFontStyle, subtitleFontStyle, titleCase, subtitleCase]);
+
+const handleShow = useCallback(() => {
+    setShow(!show);
+    updateDisplayData();
+}, [show, updateDisplayData]);
+
+const handleAdd = useCallback(() => {
+  setSavedItems(prevSavedItems => [...prevSavedItems, { title, subtitle }]);
+  updateDisplayData();
+}, [title, subtitle, updateDisplayData]);
+
+const handleSave = useCallback(() => {
+  const textToSave = savedItems.map(item => `Título: ${item.title}\r\nSubtítulo: ${item.subtitle}`).join('\r\n\r\n');
+  const blob = new Blob([textToSave], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, "savedItems.txt");
+}, [savedItems]);
+
+
+
+const handleSelect = useCallback((item) => {
+    setTitle(item.title);
+    setSubtitle(item.subtitle);
+    updateDisplayData();
+}, [updateDisplayData]);
+
+useEffect(() => {
+    updateDisplayData();
+}, [title, subtitle, updateDisplayData]);
+
+
     const changeCase = (setCase, currentCase) => {
         let nextCase;
         switch(currentCase) {
@@ -29,6 +81,7 @@ export function Control() {
         }
         setCase(nextCase);
     };
+
     const changeFontStyle = (setFontStyle, currentStyle) => {
         let nextStyle;
         switch(currentStyle) {
@@ -46,27 +99,29 @@ export function Control() {
         
       };      
 
-
-      const handleShow = () => {
-        const data = {
-            title,
-            subtitle,
-            show: !show,
-            font,
-            titleSize,
-            subtitleSize,
-            titleColor,
-            subtitleColor,
-            logo,
-            titleFontStyle,
-            subtitleFontStyle,
-            titleCase,
-            subtitleCase
-        };
-    
-        localStorage.setItem("lowerThirdsData", JSON.stringify(data));
-        setShow(!show);
-    };
+    const handleFileUpload = async (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+          // Parse the file contents
+          let lines;
+          if(evt.target.result.includes('\r\n\r\n')){
+              lines = evt.target.result.split('\r\n\r\n');
+          } else {
+              lines = evt.target.result.split('\n\n');
+          }
+          const newItems = lines.map(line => {
+              const [titleLine, subtitleLine] = line.includes('\r\n') ? line.split('\r\n') : line.split('\n');
+              const title = titleLine.split(': ')[1];
+              const subtitle = subtitleLine.split(': ')[1];
+              return { title, subtitle };
+          });
+          // Add the new items to the saved items
+          setSavedItems([...savedItems, ...newItems]);
+      };
+      reader.readAsText(file);
+  };
+  
 
         return (
             <div className="p-4 bg-slate-800 h-screen">
@@ -112,7 +167,24 @@ export function Control() {
                     <input type="file" style={{display: 'none'}} ref={fileInput} onChange={(e) => setLogo(URL.createObjectURL(e.target.files[0]))} />
                      <button className='bg-white p-3 rounded-md hover:bg-slate-300' type="button" onClick={() => fileInput.current && fileInput.current.click()}>Cambiar logo</button>
                     </div>
-                <button className='bg-white rounded-md p-3 hover:bg-slate-400 w-full' onClick={handleShow}>{show ? 'Ocultar' : 'Mostrar'}</button>
+                <button className='bg-white rounded-md p-3 mb-2 hover:bg-slate-400 w-full' onClick={handleShow}>{show ? 'Mostrar' : 'Ocultar'}</button>
+                <button className='bg-white rounded-md p-3 hover:bg-slate-400 w-full' onClick={handleAdd}>Agregar</button>
+<button className='bg-white rounded-md p-3 hover:bg-slate-400 w-full' onClick={handleSave}>Guardar</button>
+
+                <div>
+            <input type='file' ref={fileInputtxt} onChange={handleFileUpload} style={{display: 'none'}} />
+            <button onClick={() => fileInputtxt.current.click()}>Cargar archivo</button>
+        </div>
+                <div className='mt-4'>
+            <h2 className="mb-4 font-black text-slate-200 bg-slate-600 rounded-md px-4 py-2 w-max">Elementos Guardados</h2>
+            <ul>
+                {savedItems.map((item, index) => (
+                    <li key={index} onClick={() => handleSelect(item)}>
+                        Título: {item.title}, Subtítulo: {item.subtitle}
+                    </li>
+                ))}
+            </ul>
+        </div>
             </div>
         );
 }
