@@ -22,8 +22,8 @@ export function Visualizacion() {
   }, [data]);
 
 return (
-    <div className={`pt-3 transition-all duration-1000 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center `}>
-    <div className={`mr-5 ml-10 bg-blue-950 rounded-full p-3 shadow-xl shadow-black transition-all duration-500 delay-1000 ease-in-out transform ${data.show ? 'w-28 h-28' : 'w-0 h-0'} flex items-center justify-center content-center `}>
+    <div className={`pt-3 transition-all duration-1000 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center w-full`}>
+        <div className={`mr-5 ml-10 bg-blue-950 rounded-full p-3 shadow-xl shadow-black transition-all duration-500 delay-1000 ease-in-out transform ${data.show ? 'w-28 h-28' : 'w-0 h-0'} flex items-center justify-center content-center flex-shrink-0`}>
           <Image
           className={`p-1 transition-all duration-500 delay-1000 ease-in-out transform ${data.show ? 'w-28' : 'w-0'} flex `}
               src={data.logo ? data.logo : logo} // Usar el logo si está disponible, si no usar la imagen por defecto
@@ -34,14 +34,14 @@ return (
       </div>
       <div>
         <div className='flex'>
-      <div className={`overflow-hidden flex transition-all duration-500 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-gray-100 to-gray-100/50 p-4 shadow-black shadow-xl`}>
+        <div id='title' className={`w-screen overflow-hidden transition-all duration-500 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} items-center bg-gradient-to-r from-gray-100 to-gray-100/50 p-4 shadow-black shadow-xl flex-grow`}>
       <h1 style={{ fontFamily: data.font, fontSize: data.titleSize + "px", color: data.titleColor }} className={`${data.titleFontStyle} ${data.titleCase === "uppercase" ? "uppercase" : ""}`}>
           {data.title}
       </h1>
       </div>
       <div className={`flextransition-all duration-700 delay-500 ease-in-out transform ${data.show ? 'h-20' : 'h-0'} flex items-center bg-blue-950 w-3`}></div>
       </div>
-      <div className={`h-5 w-max transition-all duration-1000 delay-700 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-cyan-500/90 to-blue-500/90 p-4`}>
+      <div id='subtitle' className={`h-5 w-max transition-all duration-1000 delay-700 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-cyan-500/90 to-blue-500/90 p-4`}>
       <h2 style={{ fontFamily: data.font, fontSize: data.subtitleSize + "px", color: data.subtitleColor }} className={`${data.subtitleFontStyle} ${data.subtitleCase === "uppercase" ? "uppercase" : ""}`}>
           {data.subtitle}
       </h2>
