@@ -125,7 +125,7 @@ useEffect(() => {
 
         return (
             <div className="p-4 bg-slate-800 h-screen">
-                <h1 className="mb-4 font-black text-slate-200 bg-slate-600 rounded-md px-4 py-2 w-max">Tercios Alianza 1.0</h1>
+                <h1 className="mb-4 font-josefin_sans font-black text-slate-200 bg-slate-600 rounded-md px-4 py-2 w-max">Tercios Alianza 1.0</h1>
                 <div className='flex gap-4 mb-3'>
                 <div className="w-1/12 text-white">
                     Título
@@ -159,10 +159,12 @@ useEffect(() => {
                     Fuente:
                     </div>
                     <select className='bg-slate-400 rounded-md' value={font} onChange={(e) => setFont(e.target.value)}>
-                        <option style={{fontFamily: "Roboto"}} value="Roboto">Roboto</option>
-                        <option style={{fontFamily: "Josefin Sans"}} value="Josefin Sans">Josefin Sans</option>
-                        <option style={{fontFamily: "Montserrat"}} value="Montserrat">Montserrat</option>
-                        <option style={{fontFamily: "Raleway"}} value="Raleway">Raleway</option>
+                        <option className='font-roboto' value="roboto">Roboto</option>
+                        <option className='font-josefin_sans' value="josefin_sans">Josefin</option>
+                        <option className='font-montserrat' value="montserrat">Montserrat</option>
+                        <option className='font-raleway' value="raleway">Raleway</option>
+                        <option className='font-aBeeZee' value="aBeeZee">ABeeZee</option>
+                        <option className='font-alice' value="alice">Alice</option>
                     </select>
                     <input type="file" style={{display: 'none'}} ref={fileInput} onChange={(e) => setLogo(URL.createObjectURL(e.target.files[0]))} />
                      <button className='bg-white p-3 rounded-md hover:bg-slate-300' type="button" onClick={() => fileInput.current && fileInput.current.click()}>Cambiar logo</button>

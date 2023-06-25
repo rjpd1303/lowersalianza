@@ -32,21 +32,24 @@ return (
               height={100}
               />
       </div>
-      <div>
-        <div className='flex'>
-        <div id='title' className={`w-screen overflow-hidden transition-all duration-500 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} items-center bg-gradient-to-r from-gray-100 to-gray-100/50 p-4 shadow-black shadow-xl flex-grow`}>
-      <h1 style={{ fontFamily: data.font, fontSize: data.titleSize + "px", color: data.titleColor }} className={`${data.titleFontStyle} ${data.titleCase === "uppercase" ? "uppercase" : ""}`}>
-          {data.title}
-      </h1>
-      </div>
-      <div className={`flextransition-all duration-700 delay-500 ease-in-out transform ${data.show ? 'h-20' : 'h-0'} flex items-center bg-blue-950 w-3`}></div>
-      </div>
-      <div id='subtitle' className={`h-5 w-max transition-all duration-1000 delay-700 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-cyan-500/90 to-blue-500/90 p-4`}>
-      <h2 style={{ fontFamily: data.font, fontSize: data.subtitleSize + "px", color: data.subtitleColor }} className={`${data.subtitleFontStyle} ${data.subtitleCase === "uppercase" ? "uppercase" : ""}`}>
-          {data.subtitle}
-      </h2>
-  </div>
-      </div>
+      <div className='w-full'>
+    <div className='flex w-full'>
+        <div id='title' className={`w-[90%] overflow-hidden transition-all duration-500 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full delay-500'} items-center bg-gradient-to-r from-gray-100 to-gray-100/50 p-4 shadow-black shadow-xl flex-grow`}>
+            <h1  style={{ fontSize: data.titleSize + "px", color: data.titleColor }} className={`${data.titleFontStyle} font-${data.font} ${data.titleCase === "uppercase" ? "uppercase" : ""}`}>
+                {data.title}
+            </h1>
+        </div>
+        <div className={`flextransition-all   ease-in-out transform ${data.show ? 'h-20 delay-500 duration-700' : 'h-0 duration-200'} flex items-center bg-blue-950 w-3`}></div>
+    </div>
+    {data.subtitle && 
+        <div id='subtitle' className={`h-5 w-max transition-all duration-1000 delay-700 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center bg-gradient-to-r from-cyan-500/90 to-blue-500/90 p-4`}>
+            <h2 style={{ fontSize: data.subtitleSize + "px", color: data.subtitleColor }} className={`${data.subtitleFontStyle} font-${data.font} ${data.subtitleCase === "uppercase" ? "uppercase" : ""}`}>
+                {data.subtitle}
+            </h2>
+        </div>
+    }
+</div>
+
   </div>
 );
 

@@ -1,8 +1,51 @@
 import { LowerThirdsProvider } from './context/LowerThirdsContext'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Inter, Raleway, Josefin_Sans, Montserrat, Roboto, ABeeZee, Alice } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const raleway = Raleway({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-raleway',
+})
+
+const josefin_sans = Josefin_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-josefin_sans',
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+})
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+  weight: ["100", "300", "400", "500", "700", "900"],
+})
+
+const aBeeZee = ABeeZee({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-aBeeZee',
+  weight: ["400"],
+})
+
+const alice = Alice({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-alice',
+  weight: ["400"],
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,7 +55,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${raleway.variable} ${josefin_sans.variable} ${montserrat.variable} ${roboto.variable} ${aBeeZee.variable} ${alice.variable}`}>
         
         {children}
         </body>
