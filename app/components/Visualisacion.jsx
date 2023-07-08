@@ -2,7 +2,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import logo from '../images/logoplata.png';
+import logo from '../images/logoalianza.png';
 
 export function Visualizacion() {
     const [data, setData] = useState({});
@@ -25,7 +25,7 @@ return (
     <div className={`pt-3 transition-all duration-1000 ease-in-out transform ${data.show ? 'translate-x-0' : '-translate-x-full'} flex items-center w-full`}>
         <div className={`mr-5 ml-10 bg-blue-950 rounded-full p-3 shadow-xl shadow-black transition-all duration-500 delay-1000 ease-in-out transform ${data.show ? 'w-28 h-28' : 'w-0 h-0'} flex items-center justify-center content-center flex-shrink-0`}>
           <Image
-          className={`p-1 transition-all duration-500 delay-1000 ease-in-out transform ${data.show ? 'w-28' : 'w-0'} flex `}
+          className={`p-3 transition-all duration-500 delay-1000 ease-in-out transform ${data.show ? 'w-28' : 'w-0'} flex `}
               src={data.logo ? data.logo : logo} // Usar el logo si está disponible, si no usar la imagen por defecto
               alt="logo"
               width={100}
